@@ -1,0 +1,29 @@
+---
+
+- name: Install packages in goonie mng node
+  systemd:
+    name: goonie-mng
+    state: stopped
+
+- name: mysql 0.0.0.0
+  shell: sed -i 's/127.0.0.1/0.0.0.0/g' /etc/mysql/mysql.conf.d/mysqld.cnf
+
+- name: Restart sql
+  systemd:
+    name: mysql
+    state: restarted
+
+- name: Restore database
+  mysql_db:
+    name: all
+    login_user: root
+    login_password: kx_goonie_#$%
+    state: import
+    target: /opt/goonie-MNG/sql/create-all.sql
+
+- name: Restart goonie mng
+  systemd:
+    name: goonie-mng
+    state: restarted
+
+

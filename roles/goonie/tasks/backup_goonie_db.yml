@@ -1,0 +1,21 @@
+---
+
+- name: delete old back sql file
+  file:
+    path: /opt/goonie-all.sql
+    state: absent
+
+- name: start mysql service
+  systemd:
+    name: mysql
+    state: started
+
+- name: dump database
+  mysql_db:
+    name: goonie_prod
+    state: dump
+    login_user: root
+    login_password: kx_goonie_#$%
+    target: /opt/goonie-all.sql
+
+

@@ -3,7 +3,7 @@
 - name: Install packages in goonie node
   apt:
     name: "{{ item }}"
-    allow_unauthenticated: true
+    allow_unauthenticated: yes
     state: present
   with_items:
   - mysql-server

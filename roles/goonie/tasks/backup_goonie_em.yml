@@ -1,0 +1,31 @@
+---
+
+- name: stop goonie em
+  systemd:
+    name: goonie-em
+    state: stopped
+
+- name: stop EM use shell
+  shell: if [ -f /opt/goonie-EM/bin/shutdown.sh ];then /opt/goonie-EM/bin/shutdown.sh;fi
+
+- name: delete old back packages in goonie em node
+  file:
+    path: /opt/goonie-EM-bak
+    state: absent
+
+
+#- name: create back packages in goonie em node
+#  file:
+#    path: /opt/goonie-EM-bak
+#    state: directory
+#
+#- name: back packages in goonie em node
+#  copy:
+#    src: /opt/goonie-EM
+#    dest: /opt/goonie-EM-bak
+#    directory_mode: yes
+#    remote_src: yes
+
+- name: back packages in goonie em node
+  shell: cp -r /opt/goonie-EM /opt/goonie-EM-bak
+

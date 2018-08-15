@@ -1,5 +1,6 @@
 ---
 
 
+- include_tasks: backup_old_package.yml
 - include_tasks: init_install.yml
 
