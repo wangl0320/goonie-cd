@@ -5,12 +5,20 @@
 #    name: goonie-mng
 #    state: stopped
 
+
+
 - name: stop MNG use shell
   shell: if [ -f /opt/goonie-MNG/bin/shutdown.sh ];then /opt/goonie-MNG/bin/shutdown.sh;fi
 
+- name: revert old back sql file
+  package:
+    path: goonie-mng
+    #purge: yes
+    state: absent
+
 - name: delete old back packages in goonie mng node
   file:
-    path: /opt/goonie-MNG-bak
+    path: /opt/goonie-MNG
     state: absent
 
 
@@ -27,5 +35,5 @@
 #    rmngote_src: yes
 
 - name: back packages in goonie mng node
-  shell: cp -r /opt/goonie-MNG /opt/goonie-MNG-bak
+  shell: cp -r /opt/goonie-MNG-bak /opt/goonie-MNG
 

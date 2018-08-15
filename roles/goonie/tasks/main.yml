@@ -2,5 +2,10 @@
 
 
 - include_tasks: backup_old_package.yml
+  when: INSTALL is defined and INSTALL == true
 - include_tasks: init_install.yml
+  when: INSTALL is defined and INSTALL == true
+
+- include_tasks: rollback_package.yml
+  when: ROLLBACK is defined and ROLLBACK == true
 

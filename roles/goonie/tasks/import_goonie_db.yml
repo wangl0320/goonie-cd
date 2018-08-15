@@ -1,6 +1,6 @@
 ---
 
-- name: Install packages in goonie mng node
+- name: stop goonie mng node
   systemd:
     name: goonie-mng
     state: stopped
@@ -13,17 +13,17 @@
     name: mysql
     state: restarted
 
-- name: Restore database
-  mysql_db:
-    name: all
-    login_user: root
-    login_password: kx_goonie_#$%
-    state: import
-    target: /opt/goonie-MNG/sql/create-all.sql
+#- name: Restore database
+#  mysql_db:
+#    name: all
+#    login_user: root
+#    login_password: kx_goonie_#$%
+#    state: import
+#    target: /opt/goonie-MNG/sql/create-all.sql
 
-- name: Restart goonie mng
-  systemd:
-    name: goonie-mng
-    state: restarted
+#- name: Restart goonie mng
+#  systemd:
+#    name: goonie-mng
+#    state: restarted
 
 
