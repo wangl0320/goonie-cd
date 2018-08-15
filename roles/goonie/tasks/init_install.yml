@@ -1,0 +1,19 @@
+---
+
+- set_fact:
+    MESSAGE:
+      - "=========================================="
+      - "   Install Goonie Node        "
+      - "=========================================="
+
+- debug: var=MESSAGE
+
+- import_tasks: install_packages.yml
+  when: ENABLE_MNG is defined and ENABLE_MNG == true
+
+- import_tasks: install_goonie_mng.yml
+  when: ENABLE_MNG is defined and ENABLE_MNG == true
+
+- import_tasks: install_goonie_em.yml
+
+
