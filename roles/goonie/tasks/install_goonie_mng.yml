@@ -16,4 +16,6 @@
     name: goonie-mng
     state: restarted
 
+- name: set node goonie mng
+  shell: neucli3 device set character=mng_master
 

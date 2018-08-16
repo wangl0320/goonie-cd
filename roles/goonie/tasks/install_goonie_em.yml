@@ -16,8 +16,6 @@
     name: goonie-em
     state: restarted
 
-- name: Copy rc.local
-  copy:
-    src: rc.local
-    dest: /etc/rc.local
+- name: Add rc.local
+  shell: if [ -z "`grep sysstart.sh /etc/rc.local`" ];then sed -i '2 i/usr/local/sbin/sysstart.sh' /etc/rc.local ;fi
 

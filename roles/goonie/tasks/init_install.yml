@@ -11,12 +11,13 @@
 - import_tasks: install_packages.yml
   when: ENABLE_MNG is defined and ENABLE_MNG == true
 
+- import_tasks: install_goonie_em.yml
+
 - import_tasks: install_goonie_mng.yml
   when: ENABLE_MNG is defined and ENABLE_MNG == true
 
 - import_tasks: import_goonie_db.yml
   when: ENABLE_MNG is defined and ENABLE_MNG == true
 
-- import_tasks: install_goonie_em.yml
 
 
