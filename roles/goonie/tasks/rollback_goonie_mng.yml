@@ -13,7 +13,6 @@
 - name: revert old back sql file
   package:
     path: goonie-mng
-    #purge: yes
     state: absent
 
 - name: delete old back packages in goonie mng node

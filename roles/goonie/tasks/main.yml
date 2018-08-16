@@ -2,7 +2,8 @@
 
 
 - include_tasks: backup_old_package.yml
-  when: INSTALL is defined and INSTALL == true
+  when: BACKUP is defined and BACKUP == true
+
 - include_tasks: init_install.yml
   when: INSTALL is defined and INSTALL == true
 
