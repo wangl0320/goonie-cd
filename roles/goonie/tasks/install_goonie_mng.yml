@@ -1,5 +1,10 @@
 ---
 
+- name: packages in goonie mng node
+  package:
+    name: goonie-mng
+    state: absent
+
 - name: Install packages in goonie mng node
   package:
     name: goonie-mng

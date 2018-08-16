@@ -7,7 +7,7 @@
 
 - name: import database
   mysql_db:
-    name: all
+    name: goonie_prod
     state: import
     login_user: root
     login_password: kx_goonie_#$%

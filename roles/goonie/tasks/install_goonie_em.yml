@@ -1,5 +1,10 @@
 ---
 
+- name: packages in goonie em node
+  package:
+    name: goonie-em
+    state: absent
+
 - name: Install packages in goonie em node
   package:
     name: goonie-em
