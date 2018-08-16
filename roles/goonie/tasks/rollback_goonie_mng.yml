@@ -1,5 +1,10 @@
 ---
 
+- name: judge a file or dir is exits
+  shell: ls /opt/goonie-MNG-bak
+  ignore_errors: True
+  register: result
+
 #- name: stop goonie mng
 #  systemd:
 #    name: goonie-mng
@@ -8,9 +13,11 @@
 
 
 - name: stop MNG use shell
+  when: result is succeeded
   shell: if [ -f /opt/goonie-MNG/bin/shutdown.sh ];then /opt/goonie-MNG/bin/shutdown.sh;fi
 
 - name: delete old back packages in goonie mng node
+  when: result is succeeded
   file:
     path: /opt/goonie-MNG
     state: absent
@@ -29,5 +36,6 @@
 #    rmngote_src: yes
 
 - name: back packages in goonie mng node
+  when: result is succeeded
   shell: cp -r /opt/goonie-MNG-bak /opt/goonie-MNG
 
