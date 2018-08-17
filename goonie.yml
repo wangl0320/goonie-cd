@@ -1,6 +1,6 @@
 ---
 
-- hosts: goonie-em
+- hosts: goonie
   remote_user: root
   gather_facts: yes
   roles:
