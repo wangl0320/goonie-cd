@@ -11,11 +11,6 @@
     allow_unauthenticated: yes
     state: present
 
-- name: Restart goonie em
-  systemd:
-    name: goonie-em
-    state: restarted
-
 - name: Add rc.local
   shell: if [ -z "`grep sysstart.sh /etc/rc.local`" ];then sed -i '2 i/usr/local/sbin/sysstart.sh' /etc/rc.local ;fi
 
