@@ -1,0 +1,10 @@
+---
+
+- name: stop MNG use shell
+  shell: if [ -f /opt/goonie-MNG/bin/shutdown.sh ];then /opt/goonie-MNG/bin/shutdown.sh;fi
+
+- name: Restart goonie mng
+  systemd:
+    name: goonie-mng
+    state: restarted
+

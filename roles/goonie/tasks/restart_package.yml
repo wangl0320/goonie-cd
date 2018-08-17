@@ -1,0 +1,15 @@
+---
+
+- set_fact:
+    MESSAGE:
+      - "=========================================="
+      - "   Restart Goonie Node        "
+      - "=========================================="
+
+- debug: var=MESSAGE
+
+- import_tasks: restart_goonie_em.yml
+
+- import_tasks: restart_goonie_mng.yml
+  when: ENABLE_MNG is defined and ENABLE_MNG == true
+
