@@ -1,9 +1,5 @@
 ---
 
-- debug: var=BACKUP
-- debug: var=ENABLE_MNG
-  
-
 
 - include_tasks: backup_old_package.yml
   when: BACKUP is defined and BACKUP == "true"
