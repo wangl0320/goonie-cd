@@ -4,5 +4,5 @@
   remote_user: root
   gather_facts: yes
   roles:
-    - {role: goonie, OPERATE: install, ENABLE_MNG: true, IMPORT_DB: true}
+    - {role: goonie, INSTALL: true, ENABLE_MNG: true, IMPORT_DB: true}
 
