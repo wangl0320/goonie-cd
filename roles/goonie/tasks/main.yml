@@ -2,11 +2,11 @@
 
 
 - include_tasks: backup_old_package.yml
-  when: BACKUP is defined and BACKUP == true
+  when: OPERATE is defined and OPERATE == backup
 
 - include_tasks: init_install.yml
-  when: INSTALL is defined and INSTALL == true
+  when: OPERATE is defined and OPERATE == install
 
 - include_tasks: rollback_package.yml
-  when: ROLLBACK is defined and ROLLBACK == true
+  when: OPERATE is defined and OPERATE == rollback
 

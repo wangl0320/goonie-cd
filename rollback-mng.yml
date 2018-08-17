@@ -4,5 +4,5 @@
   remote_user: root
   gather_facts: yes
   roles:
-    - {role: goonie, ROLLBACK: true, ENABLE_MNG: true}
+    - {role: goonie, OPERATE: rollback, ENABLE_MNG: true}
 
