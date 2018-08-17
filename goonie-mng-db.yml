@@ -1,8 +1,0 @@
----
-
-- hosts: goonie-mng
-  remote_user: root
-  gather_facts: yes
-  roles:
-    - {role: goonie, INSTALL: true, ENABLE_MNG: true, IMPORT_DB: true}
-

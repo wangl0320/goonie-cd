@@ -1,8 +1,0 @@
----
-
-- hosts: goonie-em
-  remote_user: root
-  gather_facts: yes
-  roles:
-    - {role: goonie, INSTALL: true, ENABLE_MNG: false}
-
