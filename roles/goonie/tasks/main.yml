@@ -1,15 +1,19 @@
 ---
 
+- debug: var=BACKUP
+- debug: var=ENABLE_MNG
+  
+
 
 - include_tasks: backup_old_package.yml
-  when: BACKUP is defined and BACKUP == true
+  when: BACKUP is defined and BACKUP == "true"
 
 - include_tasks: init_install.yml
-  when: INSTALL is defined and INSTALL == true
+  when: INSTALL is defined and INSTALL == "true"
 
 - include_tasks: restart_package.yml
-  when: INSTALL is defined and INSTALL == true
+  when: INSTALL is defined and INSTALL == "true"
 
 - include_tasks: rollback_package.yml
-  when: ROLLBACK is defined and ROLLBACK == true
+  when: ROLLBACK is defined and ROLLBACK == "true"
 
