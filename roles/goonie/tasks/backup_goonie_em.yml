@@ -1,5 +1,11 @@
 ---
 
+- name: judge a file or dir is exits
+  shell: ls /opt/goonie-EM
+  ignore_errors: True
+  register: result
+
+
 #- name: stop goonie em
 #  systemd:
 #    name: goonie-em
@@ -9,11 +15,13 @@
 #  shell: if [ -f /opt/goonie-EM/bin/shutdown.sh ];then /opt/goonie-EM/bin/shutdown.sh;fi
 
 - name: delete old back packages in goonie em node
+  when: result is succeeded
   file:
     path: /opt/goonie-EM-bak
     state: absent
 
 - name: delete old back packages in goonie em node
+  when: result is succeeded
   file:
     path: /usr/local/sbin-bak
     state: absent
@@ -31,8 +39,10 @@
 #    remote_src: yes
 
 - name: back packages in goonie em node
+  when: result is succeeded
   shell: cp -r /opt/goonie-EM /opt/goonie-EM-bak
 
 - name: back packages in goonie em node
+  when: result is succeeded
   shell: cp -r /usr/local/sbin /usr/local/sbin-bak
 

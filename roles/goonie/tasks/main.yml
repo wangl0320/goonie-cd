@@ -12,7 +12,7 @@
   when: INSTALL is defined and INSTALL == "true"
 
 - include_tasks: restart_package.yml
-  when: INSTALL is defined and INSTALL == "true"
+  when: RESTART is defined and RESTART == "true"
 
 - include_tasks: rollback_package.yml
   when: ROLLBACK is defined and ROLLBACK == "true"

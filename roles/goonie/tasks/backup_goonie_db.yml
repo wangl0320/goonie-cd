@@ -1,16 +1,25 @@
 ---
 
+
+- name: judge a file or dir is exits
+  shell: ls /opt/goonie-MNG
+  ignore_errors: True
+  register: result
+
 - name: delete old back sql file
+  when: result is succeeded
   file:
     path: /opt/goonie-all.sql
     state: absent
 
 - name: start mysql service
+  when: result is succeeded
   systemd:
     name: mysql
     state: started
 
 - name: dump database
+  when: result is succeeded
   mysql_db:
     name: goonie_prod
     state: dump
