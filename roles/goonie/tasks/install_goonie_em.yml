@@ -1,8 +1,5 @@
 ---
 
-- name: stop EM use shell
-  shell: if [ -f /opt/goonie-EM/bin/shutdown.sh ];then /opt/goonie-EM/bin/shutdown.sh;fi
-
 - name: packages in goonie em node
   package:
     name: goonie-em
