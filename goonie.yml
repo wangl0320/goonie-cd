@@ -4,12 +4,12 @@
   remote_user: root
   gather_facts: yes
   roles:
-    - role: {role: goonie, ENABLE_MNG: true}
+    - {role: goonie, ENABLE_MNG: true}
 
 - hosts: goonie-em
   remote_user: root
   gather_facts: yes
   roles:
-    - role: {role: goonie, ENABLE_MNG: false}
+    - {role: goonie, ENABLE_MNG: false}
 
 
