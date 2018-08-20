@@ -8,7 +8,6 @@
 - name: Install packages in goonie mng node
   package:
     name: goonie-mng
-    allow_unauthenticated: yes
     state: present
 
 - name: set node goonie mng
