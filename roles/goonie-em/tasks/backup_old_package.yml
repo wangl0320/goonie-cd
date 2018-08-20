@@ -1,0 +1,13 @@
+---
+
+- set_fact:
+    MESSAGE:
+      - "=========================================="
+      - "   Backup Goonie EM Node        "
+      - "=========================================="
+
+- debug: var=MESSAGE
+
+- import_tasks: backup_goonie_em.yml
+
+

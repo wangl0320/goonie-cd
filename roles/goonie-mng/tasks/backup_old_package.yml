@@ -3,17 +3,12 @@
 - set_fact:
     MESSAGE:
       - "=========================================="
-      - "   Backup Goonie Node        "
+      - "   Backup Goonie MNG Node        "
       - "=========================================="
 
 - debug: var=MESSAGE
 
 - import_tasks: backup_goonie_mng.yml
-  when: ENABLE_MNG is defined and ENABLE_MNG == true
 
 - import_tasks: backup_goonie_db.yml
-  when: ENABLE_MNG is defined and ENABLE_MNG == true
-
-- import_tasks: backup_goonie_em.yml
-
 

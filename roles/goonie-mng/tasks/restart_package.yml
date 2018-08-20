@@ -1,0 +1,12 @@
+---
+
+- set_fact:
+    MESSAGE:
+      - "=========================================="
+      - "   Restart Goonie MNG Node        "
+      - "=========================================="
+
+- debug: var=MESSAGE
+
+- import_tasks: restart_goonie_mng.yml
+

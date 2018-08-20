@@ -3,17 +3,13 @@
 - set_fact:
     MESSAGE:
       - "=========================================="
-      - "   Rollback Goonie Node        "
+      - "   Rollback Goonie MNG Node        "
       - "=========================================="
 
 - debug: var=MESSAGE
 
 - import_tasks: rollback_goonie_mng.yml
-  when: ENABLE_MNG is defined and ENABLE_MNG == true
 
 - import_tasks: rollback_goonie_db.yml
-  when: ENABLE_MNG is defined and ENABLE_MNG == true
-
-- import_tasks: rollback_goonie_em.yml
 
 

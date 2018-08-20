@@ -1,0 +1,14 @@
+---
+
+- set_fact:
+    MESSAGE:
+      - "=========================================="
+      - "   Install Goonie EM Node        "
+      - "=========================================="
+
+- debug: var=MESSAGE
+
+- import_tasks: install_goonie_em.yml
+
+
+
