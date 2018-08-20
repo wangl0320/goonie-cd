@@ -17,7 +17,7 @@
   when: ENABLE_MNG is defined and ENABLE_MNG == true
 
 - import_tasks: import_goonie_db.yml
-  when: IMPORT_DB is defined and IMPORT_DB == true
+  when: IMPORT_DB is defined and IMPORT_DB == "true"
 
 
 
