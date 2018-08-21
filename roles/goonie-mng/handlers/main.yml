@@ -8,5 +8,5 @@
 
 - name: restart sql
   systemd:
-    name: goonie-mng
+    name: mysql
     state: restarted

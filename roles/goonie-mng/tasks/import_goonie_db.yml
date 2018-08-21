@@ -5,15 +5,22 @@
 #    name: goonie-mng
 #    state: stopped
 
+#- name: mysql 0.0.0.0
+#  shell: sed -i 's/127.0.0.1/0.0.0.0/g' /etc/mysql/mysql.conf.d/mysqld.cnf
+#  notify: restart sql
+
 - name: mysql 0.0.0.0
-  shell: sed -i 's/127.0.0.1/0.0.0.0/g' /etc/mysql/mysql.conf.d/mysqld.cnf
+  replace:
+    path: /etc/mysql/mysql.conf.d/mysqld.cnf
+    regexp: '127.0.0.1'
+    replace: '0.0.0.0'
   notify: restart sql
 
 - name: Restore database
   mysql_db:
     name: all
-    login_user: root
-    login_password: kx_goonie_#$%
+    login_user: "{{ mysql_user }}"
+    login_password: "{{ mysql_passwrod }}"
     state: import
     target: /opt/goonie-MNG/sql/create-all.sql
   notify: restart mng

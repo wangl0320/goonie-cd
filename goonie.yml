@@ -3,6 +3,9 @@
 - hosts: goonie-mng
   remote_user: root
   gather_facts: yes
+  vars:
+    mysql_user: abc
+    mysql_passwrod: kx123
   roles:
     - goonie-em
     - goonie-mng
