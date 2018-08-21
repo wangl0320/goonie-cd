@@ -40,9 +40,10 @@
 
 - name: back packages in goonie em node
   when: result is succeeded
-  shell: cp -r /opt/goonie-EM /opt/goonie-EM-bak
+  shell: cp -r /usr/local/sbin /usr/local/sbin-bak
 
 - name: back packages in goonie em node
   when: result is succeeded
-  shell: cp -r /usr/local/sbin /usr/local/sbin-bak
+  shell: cp -r /opt/goonie-EM /opt/goonie-EM-bak
+
 
