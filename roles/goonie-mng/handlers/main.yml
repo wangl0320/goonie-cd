@@ -1,0 +1,12 @@
+---
+
+- name: restart mng
+  systemd:
+    name: goonie-mng
+    state: restarted
+
+
+- name: restart sql
+  systemd:
+    name: goonie-mng
+    state: restarted

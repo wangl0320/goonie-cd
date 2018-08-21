@@ -1,0 +1,8 @@
+---
+
+- name: restart em
+  systemd:
+    name: goonie-em
+    state: restarted
+
+

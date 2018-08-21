@@ -13,7 +13,7 @@
 - import_tasks: install_goonie_mng.yml
 
 - import_tasks: import_goonie_db.yml
-  when: IMPORT_DB is defined and IMPORT_DB == "true"
+  tags: importdb
 
 
 

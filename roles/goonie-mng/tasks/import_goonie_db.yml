@@ -1,17 +1,13 @@
 ---
 
-- name: stop goonie mng node
-  systemd:
-    name: goonie-mng
-    state: stopped
+#- name: stop goonie mng node
+#  systemd:
+#    name: goonie-mng
+#    state: stopped
 
 - name: mysql 0.0.0.0
   shell: sed -i 's/127.0.0.1/0.0.0.0/g' /etc/mysql/mysql.conf.d/mysqld.cnf
-
-- name: Restart sql
-  systemd:
-    name: mysql
-    state: restarted
+  notify: restart sql
 
 - name: Restore database
   mysql_db:
@@ -20,10 +16,7 @@
     login_password: kx_goonie_#$%
     state: import
     target: /opt/goonie-MNG/sql/create-all.sql
+  notify: restart mng
 
-- name: Restart goonie mng
-  systemd:
-    name: goonie-mng
-    state: restarted
 
 
