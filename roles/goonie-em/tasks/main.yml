@@ -1,12 +1,6 @@
 ---
 
 
-- include_tasks: backup_old_package.yml
-  tags: backup
-
 - include_tasks: init_install.yml
   tags: install
-
-#- include_tasks: rollback_package.yml
-#  tags: rollback
 
