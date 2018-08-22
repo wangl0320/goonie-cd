@@ -4,8 +4,8 @@
   remote_user: root
   gather_facts: yes
   vars:
-    mysql_user: abc
-    mysql_passwrod: kx123
+    mysql_user: root
+    mysql_passwrod: kx_goonie_#$%
   roles:
     - goonie-em
     - goonie-mng
