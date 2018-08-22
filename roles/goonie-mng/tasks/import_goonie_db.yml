@@ -11,7 +11,7 @@
 
 - name: mysql 0.0.0.0
   replace:
-    path: /etc/mysql/mysql.conf.d/mysqld.cnf
+    path: /etc/mysql/mariadb.conf.d/50-server.cnf
     regexp: '127.0.0.1'
     replace: '0.0.0.0'
   notify: restart sql
