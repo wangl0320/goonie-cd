@@ -9,8 +9,10 @@
 - debug: var=MESSAGE
 
 - import_tasks: install_packages.yml
+  tags: install
 
 - import_tasks: install_goonie_mng.yml
+  tags: install
 
 - import_tasks: import_goonie_db.yml
   tags: importdb
