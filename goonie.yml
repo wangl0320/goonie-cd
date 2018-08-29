@@ -1,19 +1,18 @@
 ---
 
+
 - hosts: goonie-mng
   remote_user: root
   gather_facts: yes
-  vars:
-    mysql_user: root
-    mysql_passwrod: kx_goonie_#$%
   roles:
     - goonie-em
+    - goonie-db-ha
     - goonie-mng
+    - goonie-keepalive
 
 - hosts: goonie-em
   remote_user: root
   gather_facts: yes
   roles:
     - goonie-em
-
 

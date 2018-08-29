@@ -1,6 +1,6 @@
 ---
 
 
-- include_tasks: init_install.yml
+- include_tasks: install_goonie_em.yml
   tags: install
 

@@ -1,38 +1,12 @@
 ---
 
-#- name: stop goonie mng node
-#  systemd:
-#    name: goonie-mng
-#    state: stopped
-
-#- name: mysql 0.0.0.0
-#  shell: sed -i 's/127.0.0.1/0.0.0.0/g' /etc/mysql/mysql.conf.d/mysqld.cnf
-#  notify: restart sql
-
-#- name: set sql root password
-#  shell: mysql -uroot -e "grant all on *.* to root@'localhost' identified by 'kx_goonie_#$%' ;grant all on *.* to root@'%' identified by 'kx_goonie_#$%' ;"
-
-
-#- name: mysql debian.cnf set password
-#  replace:
-#    path: /etc/mysql/debian.cnf
-#    regexp: 'password.*'
-#    replace: 'password = "kx_goonie_#$%"'
-
-- name: mysql 0.0.0.0
-  replace:
-    path: /etc/mysql/mariadb.conf.d/50-server.cnf
-    regexp: '127.0.0.1'
-    replace: '0.0.0.0'
-  notify: restart sql
 
 - name: Restore database
   mysql_db:
     name: all
-    login_user: "{{ mysql_user }}"
-    login_password: "{{ mysql_passwrod }}"
     state: import
     target: /opt/goonie-MNG/sql/create-all.sql
+  when: groups['goonie-mng'].index(inventory_hostname) == 0
   notify: restart mng
 
 

@@ -5,8 +5,3 @@
     name: goonie-mng
     state: restarted
 
-
-- name: restart sql
-  systemd:
-    name: mysql
-    state: restarted

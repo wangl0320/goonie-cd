@@ -1,7 +1,7 @@
 ---
 
 
-- include_tasks: init_install.yml
+- include_tasks: install_goonie_mng.yml
   tags: install
 
 - include_tasks: import_goonie_db.yml
