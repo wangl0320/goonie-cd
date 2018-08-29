@@ -1,0 +1,31 @@
+---
+
+- name: Copy change master files
+  copy:
+    src: keepalived_master.sh
+    dest: /usr/local/bin/keepalived_master.sh
+    mode: 0755
+
+- name: Copy change backup files
+  copy:
+    src: keepalived_backup.sh
+    dest: /usr/local/bin/keepalived_backup.sh
+    mode: 0755
+
+- name: Copy check files
+  copy:
+    src: keepalived_check.sh
+    dest: /usr/local/bin/keepalived_check.sh
+    mode: 0755
+
+- name: Copy keepalived config file 
+  template:
+    src: keepalived.conf
+    dest: /etc/keepalived/keepalived.conf
+  notify: restart keepalived
+
+- name: systemctl enable keepalived
+  systemd:
+    name: keepalived
+    enabled: yes
+

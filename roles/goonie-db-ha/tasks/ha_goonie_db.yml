@@ -1,0 +1,43 @@
+---
+
+- name: stop slave
+  mysql_replication:
+    mode: stopslave
+
+- name: create user for replication
+  mysql_user:
+    name: "{{ mysql_user }}"
+    password: "{{ mysql_password }}"
+    priv: '*.*:REPLICATION SLAVE'
+    state: present
+    host: "{{groups['goonie-mng']| difference(inventory_hostname) |join('')}}"
+
+- name: get current master bin-log position
+  mysql_replication:
+    mode: getmaster
+  register: binlog_position
+
+- name: set position to slave
+  vars: 
+    master_hostname: "{{ groups['goonie-mng'] | difference(inventory_hostname) | join('') }}"
+  mysql_replication:
+    mode: changemaster
+    master_host: "{{ master_hostname }}"
+    master_user: "{{ mysql_user }}"
+    master_password: "{{ mysql_password }}"
+    master_log_file: "{{ hostvars[master_hostname]['binlog_position']['File'] }}"
+    master_log_pos: "{{ hostvars[master_hostname]['binlog_position']['Position'] }}"
+
+
+- name: start slave
+  mysql_replication:
+    mode: startslave
+
+- name: Get slave status
+  mysql_replication:
+    mode: getslave
+  register: slave_status
+
+- name: check slave
+  fail: msg="{{inventory_hostname}} changing master failed, exit!"
+  when: slave_status['Slave_SQL_Running'] != "Yes" 

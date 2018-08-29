@@ -1,0 +1,9 @@
+---
+
+mysql_user: goonie-rep
+mysql_password: goonie-rep-pass
+
+
+goonie_ip_interface: ens3
+goonie_virtual_router_id: 3
+goonie_vip_mask: 10.30.0.68/24

@@ -1,0 +1,12 @@
+---
+
+
+- include_tasks: install_packages.yml
+  tags: install
+
+- include_tasks: sql_goonie_config.yml
+  tags: install
+
+- include_tasks: ha_goonie_db.yml
+  tags: importdb
+

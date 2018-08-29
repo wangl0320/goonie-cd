@@ -1,0 +1,32 @@
+---
+
+
+- name: mysql 0.0.0.0
+  ini_file:
+    path: /etc/mysql/mariadb.conf.d/50-server.cnf
+    section: mysqld
+    option: "{{ item.key }}"
+    value: "{{ item.value }}"
+    backup: yes
+  with_items:
+    - { key: bind-address, value: 0.0.0.0 }
+    - { key: binlog-do-db, value: goonie_prod }
+    - { key: binlog-ignore-db, value: mysql }
+    - { key: replicate-do-db, value: goonie_prod }
+    - { key: log-slave-updates, value: 1 }
+    - { key: sync_binlog, value: 1 }
+    - { key: expire_logs_days, value: 30 }
+    - { key: max_binlog_size, value: 500M }
+    - { key: auto_increment_increment, value: 2 }
+    - { key: slave-skip-errors, value: all }
+    - { key: log_bin, value: /var/log/mysql/mysql-bin.log }
+    - { key: server-id, value: "{{ groups['goonie-mng'].index(inventory_hostname)+1 }}" }
+    - { key: auto_increment_offset, value: "{{ groups['goonie-mng'].index(inventory_hostname)+1 }}" }
+  register: changeres
+
+- name: mysql restart
+  systemd:
+    name: mysql
+    state: restarted
+  when: changeres['changed'] == true 
+
