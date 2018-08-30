@@ -3,6 +3,9 @@
 mysql_user: goonie-rep
 mysql_password: goonie-rep-pass
 
+goonie_mysql_user: goonie_db
+goonie_mysql_password: kx_goonie_#$%
+
 
 goonie_ip_interface: ens3
 goonie_virtual_router_id: 3

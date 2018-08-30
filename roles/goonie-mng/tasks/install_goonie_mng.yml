@@ -5,7 +5,6 @@
   package:
     name: goonie-mng
     state: present
-  notify: restart mng
 
 - name: systemctl disable goonie-mng
   systemd:

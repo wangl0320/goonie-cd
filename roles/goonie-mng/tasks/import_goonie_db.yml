@@ -7,7 +7,16 @@
     state: import
     target: /opt/goonie-MNG/sql/create-all.sql
   when: groups['goonie-mng'].index(inventory_hostname) == 0
-  notify: restart mng
 
+- name: create user for goonie mng
+  mysql_user:
+    name: "{{ goonie_mysql_user }}"
+    password: "{{ goonie_mysql_password }}"
+    priv: 'goonie_prod.*:ALL'
+    state: present
+    host: "{{ item }}"
+  with_items:
+  - "%"
+  - "localhost"
 
 
