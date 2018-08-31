@@ -1,5 +1,5 @@
 #!/bin/bash
 
 
-systemctl goonie-mng stop
+systemctl stop goonie-mng
 

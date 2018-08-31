@@ -1,4 +1,4 @@
 #!/bin/bash 
 
-systemctl goonie-mng start
+systemctl start goonie-mng
 
