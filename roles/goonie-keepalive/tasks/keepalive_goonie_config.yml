@@ -12,6 +12,12 @@
     dest: /usr/local/bin/keepalived_backup.sh
     mode: 0755
 
+- name: Copy change state files
+  copy:
+    src: keepalived_changestate.sh
+    dest: /usr/local/bin/keepalived_changestate.sh
+    mode: 0755
+
 - name: Copy check files
   copy:
     src: keepalived_check.sh

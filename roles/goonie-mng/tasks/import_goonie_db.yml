@@ -19,4 +19,8 @@
   - "%"
   - "localhost"
 
+- name: restore database goonie-mng stop
+  systemd:
+    name: goonie-mng
+    state: stopped
 

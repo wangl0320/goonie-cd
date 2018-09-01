@@ -1,5 +1,11 @@
 ---
 
+
+- name: mysql restart
+  systemd:
+    name: mysql
+    state: started
+
 - name: stop slave
   mysql_replication:
     mode: stopslave
