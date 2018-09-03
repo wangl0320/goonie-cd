@@ -39,7 +39,7 @@ do
 fi
 if [ $MYSQL_OK -eq 0 ] &&  [ $CHECK_TIME -eq 0 ]
 then
-    pkill keepalived
+    service keepalived stop
     /usr/local/bin/keepalived_backup.sh
     exit 1
 fi
