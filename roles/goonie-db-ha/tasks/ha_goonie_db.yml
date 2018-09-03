@@ -46,4 +46,4 @@
 
 - name: check slave
   fail: msg="{{inventory_hostname}} changing master failed, exit!"
-  when: slave_status['Slave_SQL_Running'] != "Yes" 
+  when: slave_status['Slave_IO_Running'] != "Yes" and slave_status['Slave_SQL_Running'] != "Yes" 
