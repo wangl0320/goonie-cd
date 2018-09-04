@@ -4,7 +4,7 @@
 - name: Install packages in goonie mng node
   package:
     name: goonie-mng
-    state: present
+    state: latest
 
 - name: systemctl disable goonie-mng
   systemd:
