@@ -1,7 +1,7 @@
 ---
 
 
-- name: mysql restart
+- name: keep mysql start
   systemd:
     name: mysql
     state: started

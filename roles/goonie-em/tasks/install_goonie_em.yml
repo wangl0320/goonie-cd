@@ -6,7 +6,7 @@
     state: latest
   notify: restart em
 
-- name: systemctl disable goonie-mng
+- name: systemctl enable goonie-em
   systemd:
     name: goonie-em
     enabled: yes
