@@ -22,11 +22,8 @@
     - { key: log_bin, value: /var/log/mysql/mysql-bin.log }
     - { key: server-id, value: "{{ groups['goonie-mng'].index(inventory_hostname)+1 }}" }
     - { key: auto_increment_offset, value: "{{ groups['goonie-mng'].index(inventory_hostname)+1 }}" }
-  register: changeres
+  notify: restart sql
 
-- name: mysql restart
-  systemd:
-    name: mysql
-    state: restarted
-  when: changeres['changed'] == true 
+- name: flush handler for sql restart
+  meta: flush_handlers
 
