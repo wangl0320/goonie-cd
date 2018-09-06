@@ -39,14 +39,10 @@
   mysql_replication:
     mode: startslave
 
-- include_tasks: wait_sql_ha.yml
-  with_sequence: count={{ goonie_mysql_ha_check_count }}
-
 - name: Get slave status
   mysql_replication:
     mode: getslave
   register: slave_status
-
-- name: check slave
-  fail: msg="{{inventory_hostname}} changing master failed, exit!"
-  when: slave_status['Slave_IO_Running'] != "Yes" or slave_status['Slave_SQL_Running'] != "Yes" 
+  until: slave_status['Slave_IO_Running'] == "Yes" and slave_status['Slave_SQL_Running'] == "Yes"
+  retries: "{{ goonie_mysql_ha_check_count }}"
+  delay: "{{ goonie_mysql_ha_check_wait }}"
