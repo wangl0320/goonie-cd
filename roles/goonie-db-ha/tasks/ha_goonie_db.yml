@@ -40,7 +40,7 @@
     mode: startslave
 
 - include_tasks: wait_sql_ha.yml
-  with_sequence: count=5
+  with_sequence: count={{ goonie_mysql_ha_check_count }}
 
 - name: Get slave status
   mysql_replication:

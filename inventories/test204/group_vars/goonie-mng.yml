@@ -6,7 +6,11 @@ mysql_password: goonie-rep-pass
 goonie_mysql_user: goonie_db
 goonie_mysql_password: kx_goonie_#$%
 
+goonie_mysql_ha_check_count: 5
+goonie_mysql_ha_check_wait: 5
 
 goonie_ip_interface: ens3
 goonie_virtual_router_id: 3
 goonie_vip_mask: 10.30.0.68/24
+
+

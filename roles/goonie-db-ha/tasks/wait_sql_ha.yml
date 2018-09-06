@@ -9,5 +9,5 @@
 
 - name: wait for next check
   wait_for:
-    timeout: 5
+    timeout: "{{ goonie_mysql_ha_check_wait }}"
   when: slave_status['skipped'] is not defined or slave_status['skipped'] != true
