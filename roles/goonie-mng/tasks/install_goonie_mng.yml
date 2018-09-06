@@ -1,10 +1,12 @@
 ---
 
-
 - name: Install packages in goonie mng node
   package:
-    name: goonie-mng
+    name: "{{ item }}"
     state: latest
+  with_items:
+  - goonie-mng
+  - cetusfs
 
 - name: systemctl disable goonie-mng
   systemd:
