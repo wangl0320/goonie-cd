@@ -8,8 +8,10 @@ MYSQL_OK=1
 
   
 function check_mysql_helth (){
-    slave_res=`mysql -e "show slave status\G;"| egrep 'Slave_IO_Running|Slave_SQL_Running'| grep Yes`
-    if [ -n "${slave_res}" ] 
+    slave_res=`mysql -e "show slave status\G;"`
+    slave_io_res=`echo ${slave_res}| grep 'Slave_IO_Running'| egrep 'Connecting|Yes'`
+    slave_sql_res=`echo ${slave_res}| grep 'Slave_SQL_Running'| grep Yes`
+    if [ -n "${slave_io_res}" -a -n "${slave_sql_res}" ] 
     then
         MYSQL_OK=1
     else

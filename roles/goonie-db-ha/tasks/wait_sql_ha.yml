@@ -1,0 +1,13 @@
+---
+
+
+- name: try check slave status
+  mysql_replication:
+    mode: getslave
+  register: slave_status
+  when: slave_status is not defined or ((slave_status['skipped'] is not defined or slave_status['skipped'] != true) and (slave_status['Slave_IO_Running'] != "Yes" or slave_status['Slave_SQL_Running'] != "Yes" ))
+
+- name: wait for next check
+  wait_for:
+    timeout: 5
+  when: slave_status['skipped'] is not defined or slave_status['skipped'] != true

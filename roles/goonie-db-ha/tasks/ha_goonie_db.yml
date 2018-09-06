@@ -39,6 +39,9 @@
   mysql_replication:
     mode: startslave
 
+- include_tasks: wait_sql_ha.yml
+  with_sequence: count=5
+
 - name: Get slave status
   mysql_replication:
     mode: getslave
@@ -46,4 +49,4 @@
 
 - name: check slave
   fail: msg="{{inventory_hostname}} changing master failed, exit!"
-  when: slave_status['Slave_IO_Running'] != "Yes" and slave_status['Slave_SQL_Running'] != "Yes" 
+  when: slave_status['Slave_IO_Running'] != "Yes" or slave_status['Slave_SQL_Running'] != "Yes" 
