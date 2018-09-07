@@ -3,6 +3,7 @@
 - name: Install packages in goonie em node
   package:
     name: goonie-em
+    update_cache: yes
     state: latest
   notify: restart em
 

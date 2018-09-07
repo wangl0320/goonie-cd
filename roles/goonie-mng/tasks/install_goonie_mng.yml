@@ -3,6 +3,7 @@
 - name: Install packages in goonie mng node
   package:
     name: "{{ item }}"
+    update_cache: yes
     state: latest
   with_items:
   - goonie-mng
