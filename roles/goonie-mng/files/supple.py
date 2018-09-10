@@ -27,19 +27,15 @@ sysCharType = sys.getfilesystemencoding()
 
 
 root_user='root'
-root_passwd='kx!@#890'
-#root_passwd='ubuntu'
-servers=['192.168.108.193','192.168.108.194','192.168.108.195']
-#servers=['192.168.109.248','192.168.109.249','192.168.109.250','192.168.109.251','192.168.109.252','192.168.109.253']
-#servers=['192.168.108.193','192.168.108.194','192.168.108.195']
+root_passwd='ubuntu'
+servers_list=[['192.168.108.23','192.168.108.24'], ['192.168.108.25','192.168.108.27']]
 
 mysql_server='127.0.0.1'
-#clear_mysql=True 	#use for clear mysql tables, True or False
-clear_mysql=True 	#use for clear mysql tables, True or False
-cloud_ip=100 		#100 for cloud1 , 200 for cloud2 , 300 for cloud3....
+clear_mysql=False
+cloud_ip_list=[200, 300]
 goonie_user='goonie_db'
 goonie_passwd='kx_goonie_#$%'
-cetusfs_cloud = 'cluster1'
+cetusfs_cloud_list = ['cloud1', 'cloud2']
 
 
 
@@ -237,7 +233,7 @@ def select_nodeid_cluster_node():
 
 
 class supple():
-    def update_c_storage(self):
+    def update_c_storage(self, cloud_ip, cetusfs_cloud):
         cluster_id=select_c_cluster_node(cloud_ip)
         if cloud_ip%100==0 and cluster_id==False:
             _id=cloud_ip+5
@@ -251,7 +247,7 @@ class supple():
                         }
             insert_db('c_storage',c_storage)
         return True
-    def update_h_device(self):
+    def update_h_device(self, servers, cloud_ip):
         j=1
         _mng_ip=mng_ip()
         for i in servers:
@@ -294,7 +290,7 @@ class supple():
                     }
             insert_db('h_device',h_device)
         return True
-    def update_c_cluster_node(self):
+    def update_c_cluster_node(self, cloud_ip):
         for i in select_h_device_ids():
             if str(i)[:1]==str(cloud_ip)[:1]:
                 _id=select_c_cluster_node(cloud_ip)
@@ -306,7 +302,7 @@ class supple():
                             }
                     insert_db('c_cluster_node',c_cluster_node)
         return True
-    def update_c_stor_neus_pool(self):
+    def update_c_stor_neus_pool(self, cloud_ip):
         _id=cloud_ip+1
         cluster_id=cloud_ip+5
         #cluster_id=#select_c_cluster_node(cloud_ip)
@@ -325,7 +321,7 @@ class supple():
                     }
             insert_db('c_stor_neus_pool',c_stor_neus_pool)
         return True
-    def update_c_pool_disk(self):
+    def update_c_pool_disk(self, servers, cloud_ip):
         j=1
         for i in servers:
             _id=cloud_ip+j
@@ -346,7 +342,7 @@ class supple():
                         }
                 insert_db('c_pool_disk',c_pool_disk)
         return True
-    def update_h_license(self):
+    def update_h_license(self, servers, cloud_ip):
         j=1
         for i in servers:
             _id=cloud_ip+j
@@ -370,20 +366,28 @@ class supple():
         update_db('customconf', 'configvalue', 'false', 'id', 520)
 
     @classmethod
-    def supple(cls):
-        tables_list=['c_storage','c_stor_neus_pool','h_device','c_cluster_node','c_pool_disk','h_license']
-        if clear_mysql:
-            clear_tables(tables_list)
-        cls().update_c_storage()
-        cls().update_h_device()
-        cls().update_c_cluster_node()
-        cls().update_c_stor_neus_pool()
-        cls().update_c_pool_disk()
-        cls().update_h_license()
+    def supple(cls, servers, cloud_ip, cetusfs_cloud):
+        cls().update_c_storage(cloud_ip, cetusfs_cloud)
+        cls().update_h_device(servers, cloud_ip)
+        cls().update_c_cluster_node(cloud_ip)
+        cls().update_c_stor_neus_pool(cloud_ip)
+        cls().update_c_pool_disk(servers, cloud_ip)
+        cls().update_h_license(servers, cloud_ip)
         cls().update_sequence()
-        cls().close_performance()
         return True
+
+    @classmethod
+    def close(cls):
+        cls().close_performance()
 
 
 if __name__=='__main__':
-    supple.supple()
+    if len(servers_list) != len(cloud_ip_list):
+        print "Error, servers_list need to be equal to cloud_ip"
+        sys.exit(1)
+    tables_list=['c_storage','c_stor_neus_pool','h_device','c_cluster_node','c_pool_disk','h_license']
+    if clear_mysql:
+        clear_tables(tables_list)
+    for index, v in enumerate(servers_list):
+        supple.supple(servers_list[index], cloud_ip_list[index], cetusfs_cloud_list[index])
+    supple.close()
