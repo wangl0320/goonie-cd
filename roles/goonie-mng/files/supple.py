@@ -31,11 +31,13 @@ root_passwd='ubuntu'
 servers_list=[['192.168.108.23','192.168.108.24'], ['192.168.108.25','192.168.108.27']]
 
 mysql_server='127.0.0.1'
-clear_mysql=False
-cloud_ip_list=[200, 300]
+#clear_mysql=True 	#use for clear mysql tables, True or False
+clear_mysql=False 	#use for clear mysql tables, True or False
+cloud_ip_list=[200,300] 		#100 for cloud1 , 200 for cloud2 , 300 for cloud3....
 goonie_user='goonie_db'
 goonie_passwd='kx_goonie_#$%'
 cetusfs_cloud_list = ['cloud1', 'cloud2']
+vol_id_list = [1000, 2000]
 
 
 
@@ -81,6 +83,12 @@ def execute(cmdStr,executable='/bin/sh' ):
 def mng_ip():
     _value,_out,_err=execute('ip addr')
     return _out.read()
+
+def get_vol_info(server):
+    _cmd = '/usr/local/sbin/neucli3 volume status storagetype=1'
+    _result = remote_execute(_cmd, server)
+    _result_list = _result['out'].split('\n')
+    return filter(lambda x:x!='', _result_list[1:])
 
 def get_uuid(server):
     _cmd='cat /opt/goonie-EM/webapps/ROOT/WEB-INF/conf/em.properties'
@@ -362,17 +370,60 @@ class supple():
         update_sequence()
         return True
 
+    def update_vol(self, servers, cloud_ip, vol_id):
+        if isinstance(servers, list):
+            servers = servers[0]
+        v_list = get_vol_info(servers)
+        _id = cloud_ip + 1
+        cluster_id = cloud_ip + 5
+	rest_auth = 'local'
+        for i in v_list:
+            vinfo_list = i.split(' ')
+            v_uuid = vinfo_list[0]
+            v_name = vinfo_list[1]
+            v_status = vinfo_list[2]
+            v_running_status = vinfo_list[3]
+            v_volume = { 'id':'"'+str(vol_id)+'"',
+                         'volume_name':'"'+v_name+'"',
+                         'snapshot':0,
+                         'status':'"'+v_status+'"',
+                         'running_status':'"'+v_running_status+'"',
+                         'description':'0',
+                         'create_time':'"'+str(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))+'"', 
+                         'update_time':'"'+str(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))+'"',
+                         'access_connect':'0',
+                         'operating_status':'0',
+                         'create_type':2,
+                         'volume_uuid':'"'+v_uuid+'"',
+                         'service_enum':0,
+                         'thin':0,
+                         'fs_acl':0,
+                         'nfs_acl':0,
+                         'lv_size':0,
+                         'storage_clu_id':cluster_id,
+                         'pool_id':_id,
+                         'service_clu_id':0,
+                         'iqn':'0',
+                         'readonly':0,
+                         'alert_percent':0,
+                         'rest_auth':'"'+rest_auth+'"'
+                    }
+            vol_id += 1
+            insert_db('volume', v_volume)
+        return True
+
     def close_performance(self):
         update_db('customconf', 'configvalue', 'false', 'id', 520)
 
     @classmethod
-    def supple(cls, servers, cloud_ip, cetusfs_cloud):
+    def supple(cls, servers, cloud_ip, cetusfs_cloud, vol_id):
         cls().update_c_storage(cloud_ip, cetusfs_cloud)
         cls().update_h_device(servers, cloud_ip)
         cls().update_c_cluster_node(cloud_ip)
         cls().update_c_stor_neus_pool(cloud_ip)
         cls().update_c_pool_disk(servers, cloud_ip)
         cls().update_h_license(servers, cloud_ip)
+        cls().update_vol(servers, cloud_ip, vol_id)
         cls().update_sequence()
         return True
 
@@ -385,9 +436,9 @@ if __name__=='__main__':
     if len(servers_list) != len(cloud_ip_list):
         print "Error, servers_list need to be equal to cloud_ip"
         sys.exit(1)
-    tables_list=['c_storage','c_stor_neus_pool','h_device','c_cluster_node','c_pool_disk','h_license']
+    tables_list=['c_storage','c_stor_neus_pool','h_device','c_cluster_node','c_pool_disk','h_license','volume']
     if clear_mysql:
         clear_tables(tables_list)
     for index, v in enumerate(servers_list):
-        supple.supple(servers_list[index], cloud_ip_list[index], cetusfs_cloud_list[index])
+        supple.supple(servers_list[index], cloud_ip_list[index], cetusfs_cloud_list[index], vol_id_list[index])
     supple.close()
