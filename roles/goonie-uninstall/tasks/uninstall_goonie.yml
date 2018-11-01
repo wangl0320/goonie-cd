@@ -1,0 +1,19 @@
+---
+- name: sytemctl stop keepalived and goonie-em goonie-mng
+  systemd:
+    name: "{{ item }}"
+    state: stopped
+  with_items:
+  - keepalived
+  - goonie-mng
+  - goonie-em
+
+- name: Uninstall  packages in goonie node mng and em
+  apt:
+    name: "{{ item }}"
+    update_cache: yes
+    state: absent
+    purge: yes
+  with_items:
+  - goonie-mng
+  - goonie-em

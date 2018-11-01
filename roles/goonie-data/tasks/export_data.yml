@@ -1,0 +1,17 @@
+---
+
+- name: copy exportdata.sh to /tmp/
+  copy: 
+    src: exportdata.sh
+    dest: /tmp/exportdata.sh
+
+- name: copy supple.py to /tmp/
+  copy: 
+    src: supple.py 
+    dest: /tmp/supple.py
+
+- name: register em
+  shell: /bin/bash /tmp/exportdata.sh 
+
+- name: import volume info to database
+  shell:  python /tmp/supple.py 

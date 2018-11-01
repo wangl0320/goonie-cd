@@ -1,0 +1,6 @@
+---
+
+
+- include_tasks: uninstall_goonie.yml
+  tags: uninstall
+

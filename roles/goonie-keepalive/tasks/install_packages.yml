@@ -8,5 +8,10 @@
   with_items:
   - keepalived
 
+- name: restart keepalived
+  systemd:
+    name: keepalived
+    state: restarted
+
 
 

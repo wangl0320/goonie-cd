@@ -1,0 +1,4 @@
+---
+
+- include_tasks: export_data.yml
+  tags: data

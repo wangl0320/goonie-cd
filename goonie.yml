@@ -5,6 +5,7 @@
   remote_user: root
   gather_facts: yes
   roles:
+    - goonie-uninstall
     - goonie-em
     - goonie-db-ha
     - goonie-mng
@@ -16,3 +17,8 @@
   roles:
     - goonie-em
 
+- hosts: goonie1
+  remote_user: root
+  gather_facts: yes
+  roles:
+    - goonie-data 
