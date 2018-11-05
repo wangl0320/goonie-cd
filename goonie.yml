@@ -17,7 +17,7 @@
   roles:
     - goonie-em
 
-- hosts: goonie1
+- hosts: suplle
   remote_user: root
   gather_facts: yes
   roles:
